@@ -21,26 +21,12 @@ class SimpleHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: SafeArea(
         child: Center(
-          child: StreamBuilder<bool>(
-            stream: Stream.periodic(const Duration(seconds: 5), (i) => i.isOdd),
-            builder: (context, snapshot) {
-              final showWidget = snapshot.data;
-              if (showWidget == null) {
-                print('showWidget is null');
-                return const SizedBox.shrink();
-              }
-              print(
-                'showWidget $showWidget ${DateTime.now().millisecondsSinceEpoch.toString().substring(8)}',
-              );
-
-              return DelayedSizeOpacityAnimation(
-                toShow: false,
-                child: const CircularProgressIndicator(),
-              );
-            },
+          child: DelayedSizeOpacityAnimation(
+            toShow: false,
+            child: CircularProgressIndicator(),
           ),
         ),
       ),
