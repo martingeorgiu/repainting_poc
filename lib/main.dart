@@ -25,7 +25,6 @@ class SimpleHomePage extends StatelessWidget {
       body: SafeArea(
         child: Center(
           child: DelayedSizeOpacityAnimation(
-            toShow: false,
             child: CircularProgressIndicator(),
           ),
         ),
@@ -38,11 +37,9 @@ class DelayedSizeOpacityAnimation extends StatefulWidget {
   const DelayedSizeOpacityAnimation({
     Key? key,
     required this.child,
-    this.toShow = false,
   }) : super(key: key);
 
   final Widget child;
-  final bool toShow;
 
   @override
   State<DelayedSizeOpacityAnimation> createState() =>
@@ -59,18 +56,6 @@ class _DelayedSizeOpacityAnimationState
   late final AnimationController _controller;
 
   @override
-  void didUpdateWidget(covariant DelayedSizeOpacityAnimation oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    if (widget.toShow != oldWidget.toShow) {
-      if (widget.toShow) {
-        _controller.forward();
-      } else {
-        _controller.reverse();
-      }
-    }
-  }
-
-  @override
   void dispose() {
     _controller.dispose();
     super.dispose();
@@ -81,7 +66,6 @@ class _DelayedSizeOpacityAnimationState
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 1),
     );
   }
 
